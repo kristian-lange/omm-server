@@ -243,15 +243,19 @@ class Study extends Model {
       return result
     }, {})
 
+    const trx = await Database.beginTransaction();
+
     for (const [i, row] of Object.entries(jsonData)) {
       const job = await this.jobs().create({
         position: parseInt(i) + 1
-      })
+      }, trx)
 
       await job.variables().attach(Object.keys(varTable), (record) => {
         record.value = row[varTable[record.variable_id]]
-      })
+      }, trx)
     }
+
+    await trx.commit()
   }
 
   /**
