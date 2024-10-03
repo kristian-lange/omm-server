@@ -72,20 +72,7 @@
             </v-col>
           </v-row>
           <v-row dense>
-            <v-col cols="2">
-              <v-text-field
-                ref="field"
-                v-model="priority"
-                dense
-                outlined
-                type="number"
-                hide-details
-                :rules="[v => !!v && v > 0 && v < 1000]"
-                min="1"
-                max="999"
-              />
-            </v-col>
-            <v-col cols="6">
+            <v-col cols="8">
               <v-text-field
                 v-model="searchterm"
                 dense
@@ -172,7 +159,6 @@ export default {
       fetchingMore: false,
       applying: false,
       statusFilter: 'all',
-      priority: 1,
       searchterm: null,
       pagination: {
         page: 1,
@@ -307,7 +293,7 @@ export default {
       this.applyng = true
       try {
         if (newlySelected.length) {
-          await this.study.assignParticipants(newlySelected, this.priority)
+          await this.study.assignParticipants(newlySelected)
         }
         if (this.deselected.length) {
           await this.study.revokeParticipants(this.deselected)

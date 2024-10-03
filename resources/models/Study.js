@@ -235,8 +235,8 @@ export default class Study extends Model {
    * @returns {Promise}
    * @memberof Study
    */
-  assignParticipants (ids, priority, config) {
-    return this.constructor.api().post(`${STUDIES}/${this.id}/participants`, { participants: ids, priority }, {
+  assignParticipants (ids, config) {
+    return this.constructor.api().post(`${STUDIES}/${this.id}/participants`, { participants: ids }, {
       save: false,
       ...config
     })

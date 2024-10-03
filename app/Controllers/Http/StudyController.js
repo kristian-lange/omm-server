@@ -1119,13 +1119,7 @@ class StudyController {
     if (!ptcpIDs || !isArray(ptcpIDs)) {
       return response.badRequest({ message: 'No participants were specified' })
     }
-
-    // Set priority for all new participants
-    const ptcpPriority = request.input('priority')
-    await study.participants().attach(ptcpIDs, (row) => {
-      row.priority = ptcpPriority
-    })
-
+    await study.participants().attach(ptcpIDs)
     // Also assign participants to study jobs
     const jobIDs = await study.jobs().ids()
     const ptcpJobs = []
